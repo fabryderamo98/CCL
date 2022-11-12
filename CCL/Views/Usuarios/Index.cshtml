@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CCL.Models.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numlegajo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Locacion.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numlegajo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empresa.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Locacion.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idUsuario }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idUsuario }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idUsuario })
+        </td>
+    </tr>
+}
+
+</table>

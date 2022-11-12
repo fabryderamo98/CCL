@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CCLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activos">
+          <Key>
+            <PropertyRef Name="idActivo" />
+          </Key>
+          <Property Name="idActivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="marca" Type="varchar" MaxLength="100" />
+          <Property Name="modelo" Type="varchar" MaxLength="100" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="idTipoactivo" Type="int" />
+          <Property Name="idEstado" Type="int" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+          </Key>
+          <Property Name="idEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="idEstado" />
+          </Key>
+          <Property Name="idEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Locacion">
+          <Key>
+            <PropertyRef Name="idLocacion" />
+          </Key>
+          <Property Name="idLocacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Respuestos">
+          <Key>
+            <PropertyRef Name="idRepuesto" />
+          </Key>
+          <Property Name="idRepuesto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modelo" Type="varchar" MaxLength="100" />
+          <Property Name="marca" Type="varchar" MaxLength="100" />
+          <Property Name="idActivo" Type="int" />
+          <Property Name="idTiporepuesto" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoActivo">
+          <Key>
+            <PropertyRef Name="idTipoactivo" />
+          </Key>
+          <Property Name="idTipoactivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="activo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TipoRepuesto">
+          <Key>
+            <PropertyRef Name="idTiporepuesto" />
+          </Key>
+          <Property Name="idTiporepuesto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numlegajo" Type="varchar" MaxLength="8" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" />
+          <Property Name="dni" Type="varchar" MaxLength="8" />
+          <Property Name="idEmpresa" Type="int" />
+          <Property Name="idLocacion" Type="int" />
+        </EntityType>
+        <Association Name="FK__Activos__idEstad__34C8D9D1">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="0..1" />
+          <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="idEstado" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Activos__idTipoa__33D4B598">
+          <End Role="TipoActivo" Type="Self.TipoActivo" Multiplicity="0..1" />
+          <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoActivo">
+              <PropertyRef Name="idTipoactivo" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idTipoactivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Activos__idUsuar__32E0915F">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Respuesto__idAct__38996AB5">
+          <End Role="Activos" Type="Self.Activos" Multiplicity="0..1" />
+          <End Role="Respuestos" Type="Self.Respuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activos">
+              <PropertyRef Name="idActivo" />
+            </Principal>
+            <Dependent Role="Respuestos">
+              <PropertyRef Name="idActivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Respuesto__idTip__398D8EEE">
+          <End Role="TipoRepuesto" Type="Self.TipoRepuesto" Multiplicity="0..1" />
+          <End Role="Respuestos" Type="Self.Respuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRepuesto">
+              <PropertyRef Name="idTiporepuesto" />
+            </Principal>
+            <Dependent Role="Respuestos">
+              <PropertyRef Name="idTiporepuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__idEmpre__2C3393D0">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__idLocac__2D27B809">
+          <End Role="Locacion" Type="Self.Locacion" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locacion">
+              <PropertyRef Name="idLocacion" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idLocacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CCLModelStoreContainer">
+          <EntitySet Name="Activos" EntityType="Self.Activos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locacion" EntityType="Self.Locacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuestos" EntityType="Self.Respuestos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoActivo" EntityType="Self.TipoActivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoRepuesto" EntityType="Self.TipoRepuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Activos__idEstad__34C8D9D1" Association="Self.FK__Activos__idEstad__34C8D9D1">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Activos__idTipoa__33D4B598" Association="Self.FK__Activos__idTipoa__33D4B598">
+            <End Role="TipoActivo" EntitySet="TipoActivo" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Activos__idUsuar__32E0915F" Association="Self.FK__Activos__idUsuar__32E0915F">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Respuesto__idAct__38996AB5" Association="Self.FK__Respuesto__idAct__38996AB5">
+            <End Role="Activos" EntitySet="Activos" />
+            <End Role="Respuestos" EntitySet="Respuestos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Respuesto__idTip__398D8EEE" Association="Self.FK__Respuesto__idTip__398D8EEE">
+            <End Role="TipoRepuesto" EntitySet="TipoRepuesto" />
+            <End Role="Respuestos" EntitySet="Respuestos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__idEmpre__2C3393D0" Association="Self.FK__Usuario__idEmpre__2C3393D0">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__idLocac__2D27B809" Association="Self.FK__Usuario__idLocac__2D27B809">
+            <End Role="Locacion" EntitySet="Locacion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CCLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activos">
+          <Key>
+            <PropertyRef Name="idActivo" />
+          </Key>
+          <Property Name="idActivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="marca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modelo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idUsuario" Type="Int32" />
+          <Property Name="idTipoactivo" Type="Int32" />
+          <Property Name="idEstado" Type="Int32" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK__Activos__idEstad__34C8D9D1" FromRole="Activos" ToRole="Estados" />
+          <NavigationProperty Name="TipoActivo" Relationship="Self.FK__Activos__idTipoa__33D4B598" FromRole="Activos" ToRole="TipoActivo" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Activos__idUsuar__32E0915F" FromRole="Activos" ToRole="Usuario" />
+          <NavigationProperty Name="Respuestos" Relationship="Self.FK__Respuesto__idAct__38996AB5" FromRole="Activos" ToRole="Respuestos" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="idEmpresa" />
+          </Key>
+          <Property Name="idEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__idEmpre__2C3393D0" FromRole="Empresa" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="idEstado" />
+          </Key>
+          <Property Name="idEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Activos" Relationship="Self.FK__Activos__idEstad__34C8D9D1" FromRole="Estados" ToRole="Activos" />
+        </EntityType>
+        <EntityType Name="Locacion">
+          <Key>
+            <PropertyRef Name="idLocacion" />
+          </Key>
+          <Property Name="idLocacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__idLocac__2D27B809" FromRole="Locacion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Respuestos">
+          <Key>
+            <PropertyRef Name="idRepuesto" />
+          </Key>
+          <Property Name="idRepuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modelo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="marca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idActivo" Type="Int32" />
+          <Property Name="idTiporepuesto" Type="Int32" />
+          <NavigationProperty Name="Activos" Relationship="Self.FK__Respuesto__idAct__38996AB5" FromRole="Respuestos" ToRole="Activos" />
+          <NavigationProperty Name="TipoRepuesto" Relationship="Self.FK__Respuesto__idTip__398D8EEE" FromRole="Respuestos" ToRole="TipoRepuesto" />
+        </EntityType>
+        <EntityType Name="TipoActivo">
+          <Key>
+            <PropertyRef Name="idTipoactivo" />
+          </Key>
+          <Property Name="idTipoactivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="activo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Activos" Relationship="Self.FK__Activos__idTipoa__33D4B598" FromRole="TipoActivo" ToRole="Activos" />
+        </EntityType>
+        <EntityType Name="TipoRepuesto">
+          <Key>
+            <PropertyRef Name="idTiporepuesto" />
+          </Key>
+          <Property Name="idTiporepuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Respuestos" Relationship="Self.FK__Respuesto__idTip__398D8EEE" FromRole="TipoRepuesto" ToRole="Respuestos" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numlegajo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="idEmpresa" Type="Int32" />
+          <Property Name="idLocacion" Type="Int32" />
+          <NavigationProperty Name="Activos" Relationship="Self.FK__Activos__idUsuar__32E0915F" FromRole="Usuario" ToRole="Activos" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK__Usuario__idEmpre__2C3393D0" FromRole="Usuario" ToRole="Empresa" />
+          <NavigationProperty Name="Locacion" Relationship="Self.FK__Usuario__idLocac__2D27B809" FromRole="Usuario" ToRole="Locacion" />
+        </EntityType>
+        <Association Name="FK__Activos__idEstad__34C8D9D1">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="0..1" />
+          <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="idEstado" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Activos__idTipoa__33D4B598">
+          <End Role="TipoActivo" Type="Self.TipoActivo" Multiplicity="0..1" />
+          <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoActivo">
+              <PropertyRef Name="idTipoactivo" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idTipoactivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Activos__idUsuar__32E0915F">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Respuesto__idAct__38996AB5">
+          <End Role="Activos" Type="Self.Activos" Multiplicity="0..1" />
+          <End Role="Respuestos" Type="Self.Respuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activos">
+              <PropertyRef Name="idActivo" />
+            </Principal>
+            <Dependent Role="Respuestos">
+              <PropertyRef Name="idActivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__idEmpre__2C3393D0">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__idLocac__2D27B809">
+          <End Role="Locacion" Type="Self.Locacion" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locacion">
+              <PropertyRef Name="idLocacion" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idLocacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Respuesto__idTip__398D8EEE">
+          <End Role="TipoRepuesto" Type="Self.TipoRepuesto" Multiplicity="0..1" />
+          <End Role="Respuestos" Type="Self.Respuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRepuesto">
+              <PropertyRef Name="idTiporepuesto" />
+            </Principal>
+            <Dependent Role="Respuestos">
+              <PropertyRef Name="idTiporepuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CCLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activos" EntityType="Self.Activos" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" />
+          <EntitySet Name="Locacion" EntityType="Self.Locacion" />
+          <EntitySet Name="Respuestos" EntityType="Self.Respuestos" />
+          <EntitySet Name="TipoActivo" EntityType="Self.TipoActivo" />
+          <EntitySet Name="TipoRepuesto" EntityType="Self.TipoRepuesto" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Activos__idEstad__34C8D9D1" Association="Self.FK__Activos__idEstad__34C8D9D1">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Activos__idTipoa__33D4B598" Association="Self.FK__Activos__idTipoa__33D4B598">
+            <End Role="TipoActivo" EntitySet="TipoActivo" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Activos__idUsuar__32E0915F" Association="Self.FK__Activos__idUsuar__32E0915F">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Respuesto__idAct__38996AB5" Association="Self.FK__Respuesto__idAct__38996AB5">
+            <End Role="Activos" EntitySet="Activos" />
+            <End Role="Respuestos" EntitySet="Respuestos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__idEmpre__2C3393D0" Association="Self.FK__Usuario__idEmpre__2C3393D0">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__idLocac__2D27B809" Association="Self.FK__Usuario__idLocac__2D27B809">
+            <End Role="Locacion" EntitySet="Locacion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Respuesto__idTip__398D8EEE" Association="Self.FK__Respuesto__idTip__398D8EEE">
+            <End Role="TipoRepuesto" EntitySet="TipoRepuesto" />
+            <End Role="Respuestos" EntitySet="Respuestos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CCLModelStoreContainer" CdmEntityContainer="CCLEntities">
+          <EntitySetMapping Name="Activos">
+            <EntityTypeMapping TypeName="CCLModel.Activos">
+              <MappingFragment StoreEntitySet="Activos">
+                <ScalarProperty Name="idActivo" ColumnName="idActivo" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idTipoactivo" ColumnName="idTipoactivo" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="CCLModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estados">
+            <EntityTypeMapping TypeName="CCLModel.Estados">
+              <MappingFragment StoreEntitySet="Estados">
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locacion">
+            <EntityTypeMapping TypeName="CCLModel.Locacion">
+              <MappingFragment StoreEntitySet="Locacion">
+                <ScalarProperty Name="idLocacion" ColumnName="idLocacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuestos">
+            <EntityTypeMapping TypeName="CCLModel.Respuestos">
+              <MappingFragment StoreEntitySet="Respuestos">
+                <ScalarProperty Name="idRepuesto" ColumnName="idRepuesto" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="idActivo" ColumnName="idActivo" />
+                <ScalarProperty Name="idTiporepuesto" ColumnName="idTiporepuesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoActivo">
+            <EntityTypeMapping TypeName="CCLModel.TipoActivo">
+              <MappingFragment StoreEntitySet="TipoActivo">
+                <ScalarProperty Name="idTipoactivo" ColumnName="idTipoactivo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoRepuesto">
+            <EntityTypeMapping TypeName="CCLModel.TipoRepuesto">
+              <MappingFragment StoreEntitySet="TipoRepuesto">
+                <ScalarProperty Name="idTiporepuesto" ColumnName="idTiporepuesto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="CCLModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="numlegajo" ColumnName="numlegajo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="idLocacion" ColumnName="idLocacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

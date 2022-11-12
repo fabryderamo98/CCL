@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CCL.Models.Activos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estados.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoActivo.activo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.numlegajo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estados.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoActivo.activo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.numlegajo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idActivo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idActivo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idActivo })
+        </td>
+    </tr>
+}
+
+</table>
