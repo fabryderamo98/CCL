@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CCL.Models;
+using Rotativa.MVC;
 
 namespace CCL.Controllers
 {
@@ -115,6 +116,11 @@ namespace CCL.Controllers
                 return HttpNotFound();
             }
             return View(activos);
+        }
+
+        public ActionResult Print()
+        {
+            return new ActionAsPdf("Index") { FileName = "ActivosReport.pdf" };
         }
 
         // POST: Activos/Delete/5

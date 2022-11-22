@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CCL.Models;
+using Rotativa.MVC;
 
 namespace CCL.Controllers
 {
@@ -113,6 +114,11 @@ namespace CCL.Controllers
             db.TipoActivo.Remove(tipoActivo);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Print()
+        {
+            return new ActionAsPdf("Index") { FileName = "TipoActivoReport.pdf" };
         }
 
         protected override void Dispose(bool disposing)
